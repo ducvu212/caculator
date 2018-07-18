@@ -21,12 +21,19 @@ public class CaculatorFragment extends Fragment implements View.OnClickListener 
     private static final String PREF_RESULT = "com.example.ducvu212.caculator";
     private static final String PREF_KEY_RESULT = "result";
     private final String TAG = CaculatorFragment.class.getSimpleName();
-    private int[] mIds = {R.id.button_zero, R.id.button_one, R.id.button_two, R.id.button_three, R.id.button_four, R.id.button_five
-            , R.id.button_six, R.id.button_seven, R.id.button_eight, R.id.button_nine, R.id.button_ac, R.id.button_sign
-            , R.id.button_delete, R.id.button_div, R.id.button_multi, R.id.button_sub, R.id.button_add, R.id.button_result, R.id.button_dot};
+    private int[] mIds = {
+            R.id.button_zero, R.id.button_one, R.id.button_two, R.id.button_three
+            , R.id.button_four, R.id.button_five, R.id.button_six, R.id.button_seven
+            , R.id.button_eight, R.id.button_nine, R.id.button_ac, R.id.button_sign
+            , R.id.button_delete, R.id.button_div, R.id.button_multi, R.id.button_sub
+            , R.id.button_add, R.id.button_result, R.id.button_dot
+    };
     private TextView mTextviewResult;
-    private String mResult = "", mOperator = "", mNothing;
-    private Float mFirstNumber, mSecondNumber;
+    private String mResult = "";
+    private String mOperator = "";
+    private final String mNothing = "";
+    private Float mFirstNumber;
+    private Float mSecondNumber;
     private boolean mIsClick;
 
     public CaculatorFragment() {
@@ -40,7 +47,6 @@ public class CaculatorFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_caculator, container, false);
         findViewByIds(view);
-        mNothing = getResources().getString(R.string.nothing);
         setHasOptionsMenu(true);
         SharedPreferences mSharePre = getContext().getSharedPreferences(PREF_RESULT
                 , Context.MODE_PRIVATE);
@@ -61,11 +67,7 @@ public class CaculatorFragment extends Fragment implements View.OnClickListener 
         int id = item.getItemId();
         switch (id) {
             case R.id.item_clear:
-                mResult = mNothing;
-                mOperator = mNothing;
-                mFirstNumber = 0.f;
-                mSecondNumber = 0.f;
-                mTextviewResult.setText(getResources().getString(R.string.zero));
+                actionAc();
                 break;
 
             case R.id.item_save_last_result:
@@ -86,10 +88,13 @@ public class CaculatorFragment extends Fragment implements View.OnClickListener 
     }
 
     private String checkFormatNumber(String mResult) {
-        if ((mResult.indexOf(getResources().getString(R.string.zero))
+        if ((mResult.indexOf(getResources().getString(R.string.zero)
+                , mResult.indexOf(getResources().getString(R.string.dot)))
                 == mResult.indexOf(getResources().getString(R.string.dot)) + 1)
-                && mResult.indexOf(getResources().getString(R.string.zero)) == mResult.length() - 1) {
-            mResult = mResult.substring(0, mResult.indexOf(getResources().getString(R.string.dot)));
+                && mResult.indexOf(getResources().getString(R.string.zero)
+                , mResult.indexOf(getResources().getString(R.string.dot))) == mResult.length() - 1) {
+            mResult = mResult.substring(0, mResult.indexOf(getResources().getString(R.string.dot)
+                    , mResult.indexOf(getResources().getString(R.string.dot))));
         }
 
         return mResult;
@@ -142,7 +147,12 @@ public class CaculatorFragment extends Fragment implements View.OnClickListener 
             mTextviewResult.setText(getResources().getString(R.string.zero));
         } else {
             if (mResult.length() >= 1) {
+                checkFormatNumber(mResult);
                 mResult = mResult.substring(0, mResult.length() - 1);
+                mTextviewResult.setText(mResult);
+            } else {
+                mResult = String.valueOf(mFirstNumber);
+                mResult = checkFormatNumber(mResult).substring(0, checkFormatNumber(mResult).length() - 1);
                 mTextviewResult.setText(mResult);
             }
         }
