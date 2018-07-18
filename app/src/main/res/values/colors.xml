@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="background_sate">#B3E5FC</color>
+    <color name="background_sate_action">#5ba7de</color>
+    <color name="background_button">#F5F5F5</color>
+    <color name="background_result">#F5F5F5</color>
+    <color name="orange">#FFA726</color>
 </resources>
