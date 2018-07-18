@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item android:id="@+id/item_clear"
-        app:showAsAction="collapseActionView"
-        android:title="@string/item_clear" />
-
-    <item android:id="@+id/item_save_last_result"
-        app:showAsAction="collapseActionView"
-        android:title="@string/item_save_last_result" />
-
+    <item
+        android:id="@+id/item_clear"
+        android:title="@string/item_clear"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/item_save_last_result"
+        android:title="@string/item_save_last_result"
+        app:showAsAction="collapseActionView" />
 </menu>
